@@ -6,10 +6,6 @@ branches:
   only:
   - master
   - "/^v.*$/"
-addons:
-  apt:
-    packages:
-    - libyajl2
 matrix:
   fast_finish: true
   include:

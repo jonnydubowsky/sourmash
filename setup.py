@@ -72,7 +72,7 @@ SETUP_METADATA = \
         'sourmash = sourmash.__main__:main'
         ]
     },
-    "install_requires": ["screed>=0.9", "ijson", "khmer>=2.1", 'milksnake'],
+    "install_requires": ["screed>=0.9", "khmer>=2.1", 'milksnake'],
     "setup_requires": ["setuptools>=38.6.0", "milksnake"],
     "extras_require": {
         'test' : ['pytest', 'pytest-cov', 'numpy', 'matplotlib', 'scipy','recommonmark'],

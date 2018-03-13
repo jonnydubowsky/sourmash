@@ -4,8 +4,8 @@ from __future__ import unicode_literals, division
 import math
 import copy
 
-from ._compat import string_types, range_type
 from ._lowlevel import ffi, lib
+from ._compat import to_bytes
 from .utils import RustObject, rustcall
 
 # default MurmurHash seed
@@ -38,15 +38,6 @@ def get_scaled_for_max_hash(max_hash):
     if max_hash == 0:
         return 0
     return int(round(get_minhash_max_hash() / max_hash, 0))
-
-
-def to_bytes(s):
-    if not isinstance(s, string_types + (bytes,)):
-        raise TypeError("Requires a string-like sequence")
-
-    if isinstance(s, string_types):
-        s = s.encode('utf-8')
-    return s
 
 
 def hash_murmur(kmer, seed=MINHASH_DEFAULT_SEED):
@@ -84,7 +75,6 @@ class MinHash(RustObject):
 
     def __init__(self, n, ksize, is_protein=False, track_abundance=False,
                  seed=MINHASH_DEFAULT_SEED, max_hash=0, mins=None, scaled=0):
-        self.track_abundance = track_abundance
 
         if max_hash and scaled:
             raise ValueError('cannot set both max_hash and scaled')
@@ -195,6 +185,10 @@ class MinHash(RustObject):
         a = set(self.get_mins())
         b = set(other.get_mins())
         return a - b
+
+    @property
+    def track_abundance(self):
+        return self._methodcall(lib.kmerminhash_track_abundance)
 
     @property
     def seed(self):

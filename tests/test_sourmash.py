@@ -3410,7 +3410,7 @@ def test_license_cc0():
         sig = next(signature.load_signatures(sigfile))
         assert sig.name().endswith('short.fa')
 
-        assert sig.d['license'] == 'CC0'
+        assert sig.license == 'CC0'
 
 
 def test_license_non_cc0():
