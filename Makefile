@@ -13,6 +13,7 @@ install: all
 	$(PYTHON) setup.py install
 
 dist: FORCE
+	rm -rf dist/ build sourmash.egg-info
 	$(PYTHON) setup.py sdist
 
 test: all
